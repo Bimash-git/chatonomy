@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { register, login } = require("../controllers/authController");
+const { register, login, logout } = require("../controllers/authController");
 const { auth } = require("../middleware/auth");
 const { upload } = require("../middleware/multer.middleware");
 const { handleUpload } = require("../storage/storage");
@@ -13,6 +13,6 @@ router.post("/register", upload.single("image"), handleUpload, register);
 
 // });
 router.post("/login", login);
-
+router.get("/logout", logout);
 
 module.exports = router;

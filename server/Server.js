@@ -10,7 +10,10 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true //enable cookies to be sent with requests
+}));
 app.use(express.json());
 app.use(cookieParser());
 

@@ -38,10 +38,10 @@ const register = async (req, res) => {
 
         // generating JWT token
         const token = generateToken(newUser.rows[0]);
-        console.log(token);
+        console.log("Generated token is:  ",token);
 
         // setting token in HTTP ONLY cookie
-        res.cookie("token", token, { httpOnly: true })
+        res.cookie("token", token, { httpOnly: true, sameSite: "Strict" })
         res.json({ user: newUser.rows[0] });
 
     } catch (error) {
@@ -68,10 +68,10 @@ const login = async (req, res) => {
 
         // generating token JWT
         const token = generateToken(user.rows[0]);
-        console.log(token);
+        console.log("Generated token is:  ",token);
 
         // setting token in http only cookie
-        res.cookie("token", token, { httpOnly: true });
+        res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
 
         res.json({ user: user.rows[0] });
 
@@ -81,4 +81,8 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+const logout = async(req, res) => {
+    res.clearCookie("token").staus(200).json({ message: "Successfully logged out"});
+}
+
+module.exports = { register, login, logout };

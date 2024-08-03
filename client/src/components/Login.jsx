@@ -7,16 +7,16 @@ import '../styles/Main.css';
 
 function Login() {
 
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("/api/auth/login", { email, password }
+        axios.post("http://localhost:5000/api/auth/login", { email, password })
             .then(result => {
                 console.log(result);
-                if (result.data === "Success") {
+                if (result.data.user) {
                     navigate("/dashboard");
                 }
                 else {
@@ -25,7 +25,7 @@ function Login() {
                 }
             })
             .catch(err => console.log(err))
-        )
+        
     }
 
     // const handleSubmit = (e) => {
